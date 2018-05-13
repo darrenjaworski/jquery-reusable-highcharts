@@ -84,6 +84,27 @@
       // $("#chart2")
       //   .pcmHighChart()
       //   .updateChart();
+
+      var formatter = {
+        xAxis: {
+          labels: {
+            formatter: function() {
+              return this.value; // clean, unformatted number for year
+            }
+          }
+        },
+        yAxis: {
+          labels: {
+            formatter: function() {
+              return this.value / 1000 + "(thousand)";
+            }
+          }
+        }
+      };
+
+      $("#chart4")
+        .reusableHighchart()
+        .defineCallback(formatter);
     });
   });
 })();

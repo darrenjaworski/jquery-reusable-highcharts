@@ -31,11 +31,21 @@ The plugin is designed to automatically render charts already defined on the pag
 
 ## working with the reusableHighchart plugin
 
-### return Highcharts object
+### get Highcharts object or objects
 
 ```javascript
-var hcObject = $("#chart1").reusableHighchart("getChart");
+var hcObject = $("#chart1")
+  .resusableHighChart()
+  .getChart();
+
+// or
+
+var hcObjects = $("reusable-highchart")
+  .reusableHighchart()
+  .getChart();
 ```
+
+This method will return an array of Highcharts chart objects or a single Highchart chart object.
 
 ### update components with new data and/or options
 

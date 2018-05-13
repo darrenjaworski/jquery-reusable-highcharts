@@ -6,8 +6,9 @@
 (function($) {
   "use strict";
 
-  $.fn.reusableHighchart = function(method) {
+  $.fn.reusableHighchart = function(param) {
     var self = this;
+    this.customOptions = {};
 
     this.getChart = function() {
       var charts = self.map(function() {
@@ -36,10 +37,20 @@
       });
     };
 
+    this.defineOptions = function(option) {
+      self.customOptions = $.extend(self.customOptions, option);
+      self.each(function() {
+        render.bind(this)();
+        return;
+      });
+    };
+
     function render() {
       var $el = $(this);
       var id = $el.prop("id");
-      var options = $el.data("options");
+      var options = $el.data("options") ? $el.data("options") : {};
+      options = $.extend(options, self.customOptions);
+
       if (!options) {
         console.warn(
           "Options are not defined on the data-options attribute for the chart #" +
@@ -49,15 +60,16 @@
         return this;
       }
 
-      options.series = [];
-
-      var data = $el.data("data");
-      if (data && Array.isArray(data)) {
-        options.series = data;
-      } else {
-        console.warn(
-          "Your data is undefined or not an array for the chart #" + id + "."
-        );
+      if (!options.series) {
+        options.series = [];
+        var data = $el.data("data");
+        if (data && Array.isArray(data)) {
+          options.series = data;
+        } else {
+          console.warn(
+            "Your data is undefined or not an array for the chart #" + id + "."
+          );
+        }
       }
 
       $el.highcharts(options);
@@ -66,12 +78,17 @@
 
     var methods = { getChart: self.getChart, updateChart: self.updateChart };
 
-    if (method) {
-      if (methods.hasOwnProperty(method)) {
-        return methods[method]();
+    if (param) {
+      if (typeof param === "function") {
+        if (methods.hasOwnProperty(param)) {
+          return methods[param]();
+        } else {
+          console.warn("The method you are trying to use does not exist");
+          return this;
+        }
       } else {
-        console.warn("The method you are trying to use does not exist");
-        return this;
+        this.defineOptions(param);
+        return;
       }
     }
 

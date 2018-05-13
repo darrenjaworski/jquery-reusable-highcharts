@@ -3,6 +3,8 @@
  * author - Darren Jaworski <darrenjaworski@gmail.com>
  */
 
+import $ from "jquery";
+
 (function($) {
   "use strict";
 

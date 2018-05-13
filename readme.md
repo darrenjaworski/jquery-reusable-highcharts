@@ -74,3 +74,9 @@ $("#chart1")
 ```
 
 The 'data' and 'options' parameters are optional. If you leave options empty, the chart will render with the previously defined options from the data-options attribute. If you leave both empty, the chart will reload.
+
+### set options functions dynamically
+
+It's not always the best idea to set executable javascript code as a stringified json object on a data attribute. If you need a callback defined use the...
+
+// TODO define and wire up way for javascript functions to be redefined in the Highcharts options.

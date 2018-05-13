@@ -1,12 +1,6 @@
 /**
- * usage
- *
- * component html needs data-data attr and data-options attr configured with the highcharts options and series data
- * $('.component-class').reusableHighchart() or $('#component-id).reusableHighchart() to render
- *
- * $('.component').reusableHighchart('getChart') will return a single or array of High charts objects
- * $('.component').reusableHighchart().updateChart(data, options) will rerender the chart with data and/or options provided. Data and options are not required to rerender chart.
- * You could update the data attrs described above and then call updateChart() or $('.component').reusableHighchart('updateChart') to rerender with the updated data as well.
+ * jquery reusableHighchart plugin
+ * author - Darren Jaworski <darrenjaworski@gmail.com>
  */
 
 (function($) {

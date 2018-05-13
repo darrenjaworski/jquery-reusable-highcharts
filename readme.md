@@ -27,7 +27,48 @@ Define a generic element styled and positioned the way you want, in your own css
 
 The plugin is designed to automatically render charts already defined on the page.
 
-// TODO example and method to define and render a chart in JS.
+### render chart in js only
+
+Define a container for your chart.
+
+```html
+<div id="chart4"></div>
+```
+
+In your javascript file initialize a chart using a highcharts configuration object.
+
+```javascript
+var chartOptions = {
+  chart: {
+    type: "area"
+  },
+  title: {
+    text: "Area chart with negative values"
+  },
+  xAxis: {
+    categories: ["Apples", "Oranges", "Pears", "Grapes", "Bananas"]
+  },
+  credits: {
+    enabled: false
+  },
+  series: [
+    {
+      name: "John",
+      data: [5, 3, 4, 7, 2]
+    },
+    {
+      name: "Jane",
+      data: [2, -2, -3, 2, 1]
+    },
+    {
+      name: "Joe",
+      data: [3, 4, 4, -2, 5]
+    }
+  ]
+};
+
+$("#chart4").reusableHighchart(chartOptions);
+```
 
 ## working with the reusableHighchart plugin
 
@@ -40,7 +81,7 @@ var hcObject = $("#chart1")
 
 // or
 
-var hcObjects = $("reusable-highchart")
+var hcObjects = $(".reusable-highchart")
   .reusableHighchart()
   .getChart();
 ```
@@ -73,10 +114,39 @@ $("#chart1")
   .updateChart();
 ```
 
+Call the function 'updateChart' to update the chart with data, options, or just to rerender the chart.
+
 The 'data' and 'options' parameters are optional. If you leave options empty, the chart will render with the previously defined options from the data-options attribute. If you leave both empty, the chart will reload.
 
-### set options functions dynamically
+### set options dynamically
 
-It's not always the best idea to set executable javascript code as a stringified json object on a data attribute. If you need a callback defined use the...
+It's not always the best idea to set executable javascript code as a stringified json object on a data attribute. If you need a callback defined use the 'defineOptions' method to redefine your callbacks as you would in Highcharts configuration object.
 
-// TODO define and wire up way for javascript functions to be redefined in the Highcharts options.
+```javascript
+var options = {
+  xAxis: {
+    labels: {
+      formatter: function() {
+        return this.value;
+      }
+    }
+  },
+  yAxis: {
+    labels: {
+      formatter: function() {
+        return this.value / 1000 + "(thousand)";
+      }
+    }
+  }
+};
+
+$("#chart4")
+  .reusableHighchart()
+  .defineOptions(options);
+```
+
+Alternatively you could reinitialize them with the options passed as an override.
+
+```javascript
+$("#chart4").reusableHighChart(options);
+```

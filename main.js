@@ -99,10 +99,6 @@
 
     $("#update").click(function(e) {
       e.preventDefault();
-      var hcObject = $("#chart3")
-        .reusableHighchart()
-        .getChart();
-      console.log(hcObject); // array of all the High chart objects
 
       // update #chart1 with new data and options
       $("#chart1")
@@ -115,6 +111,9 @@
       // $("#chart2")
       //   .pcmHighChart()
       //   .updateChart();
+
+      var hcObject = $("#chart3").reusableHighchart("getChart");
+      console.log(hcObject); // array of all the High chart objects
 
       var optionOverrides = {
         xAxis: {

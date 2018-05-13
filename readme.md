@@ -81,7 +81,7 @@ var hcObject = $("#chart1")
 
 // or
 
-var hcObjects = $("reusable-highchart")
+var hcObjects = $(".reusable-highchart")
   .reusableHighchart()
   .getChart();
 ```

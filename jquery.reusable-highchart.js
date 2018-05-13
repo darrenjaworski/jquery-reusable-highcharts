@@ -79,13 +79,8 @@
     var methods = { getChart: self.getChart, updateChart: self.updateChart };
 
     if (param) {
-      if (typeof param === "function") {
-        if (methods.hasOwnProperty(param)) {
-          return methods[param]();
-        } else {
-          console.warn("The method you are trying to use does not exist");
-          return this;
-        }
+      if (methods.hasOwnProperty(param)) {
+        return methods[param]();
       } else {
         this.defineOptions(param);
         return;

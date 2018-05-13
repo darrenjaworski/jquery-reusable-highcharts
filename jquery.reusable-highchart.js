@@ -40,7 +40,25 @@
       var $el = $(this);
       var id = $el.prop("id");
       var options = $el.data("options");
-      options.series = $el.data("data");
+      if (!options) {
+        console.warn(
+          "Options are not defined on the data-options attribute for the chart #" +
+            id +
+            "."
+        );
+        return this;
+      }
+
+      options.series = [];
+
+      var data = $el.data("data");
+      if (data && Array.isArray(data)) {
+        options.series = data;
+      } else {
+        console.warn(
+          "Your data is undefined or not an array for the chart #" + id + "."
+        );
+      }
 
       $el.highcharts(options);
       return this;
@@ -52,7 +70,7 @@
       if (methods.hasOwnProperty(method)) {
         return methods[method]();
       } else {
-        console.log("The method you are trying to use does not exist");
+        console.warn("The method you are trying to use does not exist");
         return this;
       }
     }
